@@ -1,5 +1,7 @@
 # 連接 ChatGPT、Claude 與 Grok
 
+想交給 agent 安裝和設定，可使用 [Agent 安裝指南](agent-install.md)，裡面附有可直接轉交的指令。
+
 教學依 2026-10-18 查閱的官方文件整理。選單與權限可能隨帳號改變；這裡將設定步驟與[實際測試範圍](playtest.md)分開記錄。詳細英文指令與故障表見 [clients.md](clients.md)。
 
 ## 一行啟動

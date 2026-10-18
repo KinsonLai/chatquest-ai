@@ -7,6 +7,8 @@ Play a text adventure with an AI, save your progress, and try another choice on 
 
 [繁體中文](README.zh-TW.md) · [Try the story](#try-it-in-five-minutes) · [Connect ChatGPT, Claude or Grok](docs/clients.md) · [Playtest transcript](docs/playtest.md) · [Build a world](docs/world-packs.md)
 
+Have a coding agent set it up: [agent installation guide](docs/agent-install.md).
+
 ChatQuest AI keeps the inventory, rolls, story progress and each character's knowledge in local SQLite. The model reads those records through MCP before continuing a scene. That gives it something to check when a conversation gets long and details start drifting.
 
 You can also go back to a saved decision and play a different route without overwriting the first one. JSON world packs let you write your own setting. The server provides 17 tools and has no web UI or model API calls; you bring a chat client, with its own account and hosting requirements.
@@ -37,6 +39,10 @@ An item you've spent should stay spent. A secret you found alone shouldn't appea
 | Operating guide     | A bundled skill, MCP resource and prompt, plus schemas for the installed tools.                                                                   |
 
 ## Try it in five minutes
+
+If you want an agent to install and configure it, give it this prompt:
+
+> Install ChatQuest AI for my MCP client using https://raw.githubusercontent.com/KinsonLai/chatquest-ai/main/docs/agent-install.md . Preserve my existing saves and other MCP settings, test the installation with a disposable database, and report any remaining client login or restart step.
 
 Requires Node.js 24+ and npm. Try the story without cloning the repo:
 

@@ -1,5 +1,7 @@
 # Connect a chat client
 
+For an agent to handle the local install and configuration, use the [agent installation guide](agent-install.md).
+
 These instructions were checked against the providers' documentation on 2026-10-18. Menu labels and account access can change. A server speaking MCP does not prove that a particular chat product can authenticate to it. See [tested flows](playtest.md) for the evidence collected for this release.
 
 ## Pick a route

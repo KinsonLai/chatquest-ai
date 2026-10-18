@@ -4,6 +4,8 @@
 
 [English](README.md) · [ChatGPT／Claude／Grok 連接教學](docs/clients.zh-TW.md) · [完整遊玩紀錄](docs/playtest.md) · [世界包格式](docs/world-packs.md) · [操作與恢復](docs/workflows.md)
 
+想交給 coding agent 安裝，可以直接用[Agent 安裝指南](docs/agent-install.md)。
+
 玩到後面，模型可能忘記用掉的道具，或讓角色知道沒聽過的秘密。ChatQuest AI 把背包、擲骰結果、劇情進度和各人物所知存進本機 SQLite，讓模型透過 MCP 查紀錄再繼續，減少長對話中靠猜補設定的機會。
 
 你也可以回到之前的選擇，試另一條路，兩邊各自存檔。世界設定用 JSON 定義，修仙、太空求生或都市調查都可以自己寫。模型仍可能寫錯旁白；存下的數字和見聞，至少能拿來核對它寫的故事。
@@ -22,6 +24,10 @@
 - 查操作方法：內建操作 skill、MCP resource、prompt，以及目前安裝版本的工具 schema。
 
 ## 立即試跑
+
+也可以把這句交給有終端與檔案權限的 agent：
+
+> 請依 https://raw.githubusercontent.com/KinsonLai/chatquest-ai/main/docs/agent-install.md 為我使用的 MCP 客戶端安裝 ChatQuest AI。保留原有存檔和其他 MCP 設定，用獨立測試資料庫驗收；完成後告訴我哪些步驟已驗證，以及是否還需要登入或重新啟動客戶端。
 
 需要 Node.js 24+：
 
