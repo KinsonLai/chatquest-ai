@@ -2,7 +2,7 @@
 
 ## Start a campaign
 
-Read the tools index, then call `create_campaign` with a name, a bundled template (`lantern`, `signal`, `blackout`) or a JSON `world`, and a stable `idempotency_key`. Do not supply both template and world. The response contains a real `campaign_id` and `branch_id: "main"`. Creation retries return the same campaign. Use those IDs in every later call. There is no global active game.
+Read the tools index, then call `create_campaign` with a name, a bundled template (`lantern`, `signal`, `blackout`, `ferry`) or a JSON `world`, and a stable `idempotency_key`. Do not supply both template and world. The response contains a real `campaign_id` and `branch_id: "main"`. Creation retries return the same campaign. Use those IDs in every later call. There is no global active game.
 
 ## Two-call turns
 

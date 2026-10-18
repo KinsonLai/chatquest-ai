@@ -1,0 +1,67 @@
+{
+  "id": "ferry",
+  "name": "The Last Ferry",
+  "genre": "harbour mystery",
+  "premise": "A flood is approaching the west quay. Robin must get a ferrymaster and her young apprentice to the east bank shelter. The ferry's mooring ring is split. A torn dispatch in the empty ticket hut may explain why the warning bell was late. Start at the quay before anyone has read the dispatch; discovering it does not solve the crossing.",
+  "player": {
+    "name": "Robin",
+    "attributes": { "insight": 3, "craft": 2, "agility": 2 },
+    "vitals": {
+      "health": { "current": 10, "max": 10 },
+      "resolve": { "current": 8, "max": 8 }
+    }
+  },
+  "actors": {
+    "jun": {
+      "name": "Jun",
+      "age": 13,
+      "experience": [
+        "Helps on fishing boats after school",
+        "Can tie mooring knots and read local tide marks",
+        "Has not worked in the harbour office or read its dispatches"
+      ],
+      "intent": "Get his borrowed lantern back and leave with Ada; refuses to swim the channel",
+      "location": "West quay"
+    },
+    "ada": {
+      "name": "Ada",
+      "age": 46,
+      "experience": [
+        "Runs the ferry",
+        "Can rig a towline",
+        "Keeps two replacement mooring rings in the ticket hut"
+      ],
+      "intent": "Get everyone across, but will not launch with an unsecured line",
+      "location": "West quay"
+    }
+  },
+  "initial": {
+    "location": "West quay",
+    "resources": { "coins": 6 },
+    "inventory": { "rope": 2, "patch": 1, "lantern": 1 },
+    "goals": ["Get Robin, Jun and Ada to the east bank shelter"]
+  },
+  "rules": {
+    "difficulties": { "easy": 8, "standard": 12, "hard": 18 },
+    "checks_per_turn": 3,
+    "tick_minutes": 15
+  },
+  "events": [
+    {
+      "id": "tide",
+      "title": "Water reaches the steps",
+      "description": "The lower quay steps disappear under the flood. A low bell sounds from the east bank.",
+      "chance": 1,
+      "locations": ["West quay", "Ferry deck"],
+      "cooldown_minutes": 240,
+      "visibility": "public"
+    }
+  ],
+  "canon": [
+    {
+      "id": "quay-notes",
+      "title": "West quay notes",
+      "text": "The ferry's mooring ring is split. Ada refuses an unsecured launch.\nA replacement ring costs 2 coins. Repairing the mount consumes one rope and one patch, even if the repair fails. A failed repair can be replaced with Ada's slower towline method.\nA towline crossing consumes a second rope. If landing fails, everyone must retreat to the west quay before taking the high footbridge; the failed landing costs Robin 2 health.\nThe high footbridge remains open above the flood line. Walking it takes 30 minutes.\nJun is 13. He knows knots and the tide marks from fishing boats, but has never worked in the harbour office. He will not swim the channel.\nThe lantern belongs to Jun. Robin borrowed it before the opening. Ada has the east-bank shelter key.\nIn the empty ticket hut, a wet dispatch reads: Gate Three was opened before the warning bell. Its signature is unreadable. A successful inspection recovers Gate Three; a failed inspection recovers only the words before the bell. Nobody knows who signed it. Jun and Ada have not read it."
+    }
+  ]
+}

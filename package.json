@@ -1,7 +1,7 @@
 {
   "name": "branchwright-mcp",
-  "version": "0.1.0",
-  "description": "A headless MCP engine for persistent, branching LLM adventures. Your model tells the story; SQLite keeps the receipts.",
+  "version": "0.2.0",
+  "description": "MCP server for text adventures with saved state, character knowledge, server dice and alternative timelines.",
   "type": "module",
   "license": "MIT",
   "engines": {
@@ -28,6 +28,7 @@
     "test": "node --test tests/*.test.mjs",
     "demo": "node scripts/demo.mjs",
     "check:release": "node scripts/check-release.mjs",
+    "check:package": "node scripts/smoke-package.mjs",
     "format:check": "prettier --check \"**/*.{mjs,json,md,yml}\"",
     "format": "prettier --write \"**/*.{mjs,json,md,yml}\""
   },

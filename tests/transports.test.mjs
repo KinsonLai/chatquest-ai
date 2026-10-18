@@ -29,7 +29,7 @@ test("official client performs stdio discovery, resources, campaign, commit and 
     await client.connect(transport);
     const list = await client.listTools();
     assert.equal(list.tools.length, 17);
-    assert.equal((await client.listResources()).resources.length, 4);
+    assert.equal((await client.listResources()).resources.length, 5);
     assert.ok(
       (await client.listPrompts()).prompts.some(
         (p) => p.name === "start-adventure",

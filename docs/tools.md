@@ -14,4 +14,4 @@ The server exposes17 tools. `read_guide(section="tools")` generates exact schema
 
 All branch operations explicitly require `campaign_id` and `branch_id`. Read-only annotations reflect behavior: preparation writes a proof, rolling persists a result, and ingestion changes canon. Neither an annotation nor a skill grants permission to bypass client approval.
 
-Resources: `branchwright://guide`, `branchwright://packs/lantern`, `branchwright://packs/signal`, `branchwright://packs/blackout`. Prompt: `start-adventure` with optional `genre`.
+Resources: `branchwright://guide`, `branchwright://packs/lantern`, `branchwright://packs/signal`, `branchwright://packs/blackout`, `branchwright://packs/ferry`. Prompt: `start-adventure` with optional `genre`.

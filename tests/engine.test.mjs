@@ -33,8 +33,8 @@ const turn = (p, s, changes = {}, key = "turn-test-001") => ({
   },
   changes,
 });
-test("three genres, replay, resource validation and no silent healing", () => {
-  for (const template of ["lantern", "signal", "blackout"]) {
+test("four world packs, replay, resource validation and no silent healing", () => {
+  for (const template of ["lantern", "signal", "blackout", "ferry"]) {
     const { e, scope } = setup(template),
       p = prep(e, scope),
       hp = p.state.player.vitals.health.current;

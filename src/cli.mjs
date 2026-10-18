@@ -4,6 +4,7 @@ import { resolve } from "node:path";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { Engine } from "./engine.mjs";
 import { createMcpServer, listenHttp } from "./server.mjs";
+import { VERSION } from "./version.mjs";
 const { values } = parseArgs({
   options: {
     http: { type: "boolean" },
@@ -12,16 +13,28 @@ const { values } = parseArgs({
     db: { type: "string" },
     help: { type: "boolean" },
     version: { type: "boolean" },
+    demo: { type: "boolean" },
   },
 });
 if (values.help) {
   console.log(
-    "Branchwright MCP\n  node src/cli.mjs [--db path]           stdio\n  node src/cli.mjs --http [--port 3333]   Streamable HTTP\nEnvironment: BRANCHWRIGHT_DB, BRANCHWRIGHT_TOKEN, BRANCHWRIGHT_ALLOWED_HOSTS",
+    "Branchwright MCP\n  branchwright [--db path]                stdio (waits for an MCP client)\n  branchwright --http [--port 3333]        Streamable HTTP\n  branchwright --demo                     fresh five-scene story and IF replay; temporary save\nDefault save: .branchwright/state.sqlite in the working directory. Use an absolute --db path to resume reliably.\nEnvironment: BRANCHWRIGHT_DB, BRANCHWRIGHT_TOKEN, BRANCHWRIGHT_ALLOWED_HOSTS",
   );
   process.exit(0);
 }
 if (values.version) {
-  console.log("0.1.0");
+  console.log(VERSION);
+  process.exit(0);
+}
+if (values.demo) {
+  if (values.http || values.db || values.port || values.host) {
+    console.error(
+      "--demo uses a temporary save; do not combine it with server options.",
+    );
+    process.exit(1);
+  }
+  const { runDemo } = await import("./demo.mjs");
+  await runDemo();
   process.exit(0);
 }
 const filename =

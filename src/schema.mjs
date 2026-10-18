@@ -145,7 +145,7 @@ export const definitions = {
     z
       .object({
         name: text(100),
-        template: z.enum(["lantern", "signal", "blackout"]).optional(),
+        template: z.enum(["lantern", "signal", "blackout", "ferry"]).optional(),
         world: World.optional(),
         idempotency_key: key,
       })
