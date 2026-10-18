@@ -1,6 +1,6 @@
 {
-  "name": "branchwright-mcp",
-  "version": "0.2.0",
+  "name": "chatquest-ai",
+  "version": "0.3.0",
   "description": "MCP server for text adventures with saved state, character knowledge, server dice and alternative timelines.",
   "type": "module",
   "license": "MIT",
@@ -8,6 +8,7 @@
     "node": ">=24.0.0"
   },
   "bin": {
+    "chatquest": "src/cli.mjs",
     "branchwright": "src/cli.mjs"
   },
   "files": [
@@ -51,10 +52,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/KinsonLai/branchwright-mcp.git"
+    "url": "https://github.com/KinsonLai/chatquest-ai.git"
   },
-  "homepage": "https://github.com/KinsonLai/branchwright-mcp",
+  "homepage": "https://github.com/KinsonLai/chatquest-ai",
   "bugs": {
-    "url": "https://github.com/KinsonLai/branchwright-mcp/issues"
+    "url": "https://github.com/KinsonLai/chatquest-ai/issues"
   }
 }

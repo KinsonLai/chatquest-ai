@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 import { parseArgs } from "node:util";
-import { resolve } from "node:path";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { Engine } from "./engine.mjs";
 import { createMcpServer, listenHttp } from "./server.mjs";
 import { VERSION } from "./version.mjs";
+import { runtimeConfig } from "./config.mjs";
 const { values } = parseArgs({
   options: {
     http: { type: "boolean" },
@@ -18,7 +18,7 @@ const { values } = parseArgs({
 });
 if (values.help) {
   console.log(
-    "Branchwright MCP\n  branchwright [--db path]                stdio (waits for an MCP client)\n  branchwright --http [--port 3333]        Streamable HTTP\n  branchwright --demo                     fresh five-scene story and IF replay; temporary save\nDefault save: .branchwright/state.sqlite in the working directory. Use an absolute --db path to resume reliably.\nEnvironment: BRANCHWRIGHT_DB, BRANCHWRIGHT_TOKEN, BRANCHWRIGHT_ALLOWED_HOSTS",
+    "ChatQuest AI\n  chatquest [--db path]                stdio (waits for an MCP client)\n  chatquest --http [--port 3333]        Streamable HTTP\n  chatquest --demo                     fresh five-scene story and IF replay; temporary save\nDefault save: .branchwright/state.sqlite in the working directory (unchanged for compatibility). Use an absolute --db path to resume reliably.\nEnvironment: CHATQUEST_DB, CHATQUEST_TOKEN, CHATQUEST_ALLOWED_HOSTS\nLegacy branchwright command and BRANCHWRIGHT_* variables remain supported.",
   );
   process.exit(0);
 }
@@ -37,11 +37,8 @@ if (values.demo) {
   await runDemo();
   process.exit(0);
 }
-const filename =
-    values.db ??
-    process.env.BRANCHWRIGHT_DB ??
-    resolve(".branchwright/state.sqlite"),
-  engine = new Engine(filename);
+const config = runtimeConfig(values),
+  engine = new Engine(config.db);
 try {
   if (values.http) {
     const port = Number(values.port ?? 3333);
@@ -50,13 +47,11 @@ try {
     const listener = await listenHttp(engine, {
       host: values.host ?? "127.0.0.1",
       port,
-      token: process.env.BRANCHWRIGHT_TOKEN,
-      allowedHosts: (process.env.BRANCHWRIGHT_ALLOWED_HOSTS ?? "")
-        .split(",")
-        .filter(Boolean),
+      token: config.token,
+      allowedHosts: config.allowedHosts,
     });
     console.error(
-      `Branchwright MCP listening on ${JSON.stringify(listener.address())}; no web UI.`,
+      `ChatQuest AI listening on ${JSON.stringify(listener.address())}; no web UI.`,
     );
     for (const signal of ["SIGINT", "SIGTERM"])
       process.once(signal, () =>

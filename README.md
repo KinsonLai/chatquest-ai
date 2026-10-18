@@ -1,13 +1,13 @@
-# Branchwright MCP
+# ChatQuest AI
 
 An MCP server for text adventures with saved state, character knowledge and alternative timelines.
 
-[![CI](https://github.com/KinsonLai/branchwright-mcp/actions/workflows/ci.yml/badge.svg)](https://github.com/KinsonLai/branchwright-mcp/actions/workflows/ci.yml)
+[![CI](https://github.com/KinsonLai/chatquest-ai/actions/workflows/ci.yml/badge.svg)](https://github.com/KinsonLai/chatquest-ai/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
 [繁體中文](README.zh-TW.md) · [Try the story](#try-it-in-five-minutes) · [Connect ChatGPT, Claude or Grok](docs/clients.md) · [Playtest transcript](docs/playtest.md) · [Build a world](docs/world-packs.md)
 
-A model runs the adventure through 17 tools. Branchwright stores the canon, dice, inventory, private knowledge, world clock and saves in local SQLite. You can return to an earlier decision, play another route and keep both timelines.
+A model runs the adventure through 17 tools. ChatQuest AI stores the canon, dice, inventory, private knowledge, world clock and saves in local SQLite. You can return to an earlier decision, play another route and keep both timelines.
 
 The server has no web UI or model API calls. You bring a chat client; its account and hosting requirements still apply.
 
@@ -41,7 +41,7 @@ Use it when you want the next scene to follow the saved inventory, prior rolls a
 Requires Node.js 24+ and npm. Run the fresh story demo without cloning:
 
 ```sh
-npx --yes --package=https://github.com/KinsonLai/branchwright-mcp/releases/download/v0.2.0/branchwright-mcp-0.2.0.tgz branchwright --demo
+npx --yes --package=https://github.com/KinsonLai/chatquest-ai/releases/download/v0.3.0/chatquest-ai-0.3.0.tgz chatquest --demo
 ```
 
 The package comes from this repository's release, not the npm registry. The replay starts _The Last Ferry_ at the quay, plays five scenes through real MCP calls and server dice, then tries a historical IF. Failed repairs consume supplies; a failed landing causes an injury and forces the high-bridge route. It checks saves and knowledge along the way. The script writes the prose; it does not call a model. The separate [model-led playtest](docs/playtest.md) includes the actual submitted scenes and receipts.
@@ -49,7 +49,7 @@ The package comes from this repository's release, not the npm registry. The repl
 For MCP clients, omit `--demo`:
 
 ```sh
-npx --yes --package=https://github.com/KinsonLai/branchwright-mcp/releases/download/v0.2.0/branchwright-mcp-0.2.0.tgz branchwright
+npx --yes --package=https://github.com/KinsonLai/chatquest-ai/releases/download/v0.3.0/chatquest-ai-0.3.0.tgz chatquest
 ```
 
 This waits for a stdio client. Add `--http` to serve `http://127.0.0.1:3333/mcp`, or `--help` for options. Use an absolute `--db` path in client settings to resume the same save. [Connection instructions for ChatGPT, Claude and Grok →](docs/clients.md)
@@ -57,8 +57,8 @@ This waits for a stdio client. Add `--http` to serve `http://127.0.0.1:3333/mcp`
 To work from source:
 
 ```sh
-git clone https://github.com/KinsonLai/branchwright-mcp.git
-cd branchwright-mcp
+git clone https://github.com/KinsonLai/chatquest-ai.git
+cd chatquest-ai
 npm ci
 npm run demo
 ```
@@ -70,14 +70,14 @@ Then connect a client using stdio:
 ```json
 {
   "mcpServers": {
-    "branchwright": {
+    "chatquest": {
       "command": "npx",
       "args": [
         "--yes",
-        "--package=https://github.com/KinsonLai/branchwright-mcp/releases/download/v0.2.0/branchwright-mcp-0.2.0.tgz",
-        "branchwright"
+        "--package=https://github.com/KinsonLai/chatquest-ai/releases/download/v0.3.0/chatquest-ai-0.3.0.tgz",
+        "chatquest"
       ],
-      "env": { "BRANCHWRIGHT_DB": "/absolute/path/to/my-adventure.sqlite" }
+      "env": { "CHATQUEST_DB": "/absolute/path/to/my-adventure.sqlite" }
     }
   }
 }
@@ -87,7 +87,7 @@ Use an absolute executable path if your client cannot find `npx`. On Windows, us
 
 Ask your client:
 
-> Read Branchwright's operating guide and workflows. Create a new campaign using the `ferry` template, from the beginning. Let me choose Robin's actions, keep each character's knowledge separate, and confirm saves only from committed receipts.
+> Read ChatQuest AI's operating guide and workflows. Create a new campaign using the `ferry` template, from the beginning. Let me choose Robin's actions, keep each character's knowledge separate, and confirm saves only from committed receipts.
 
 For an existing campaign, list campaigns and branches instead of creating a new one.
 
@@ -108,14 +108,14 @@ These small, original packs are included under MIT. Bring your own world through
 npm run start:http
 ```
 
-This binds `http://127.0.0.1:3333/mcp` by default. It serves MCP only; `/` is not a dashboard. Set `BRANCHWRIGHT_TOKEN` to require a bearer token, including for local requests.
+This binds `http://127.0.0.1:3333/mcp` by default. It serves MCP only; `/` is not a dashboard. Set `CHATQUEST_TOKEN` to require a bearer token, including for local requests.
 
-For a remote server, bind `--host 0.0.0.0`, set a random token of at least 24 characters and `BRANCHWRIGHT_ALLOWED_HOSTS` to your public hostname. Put TLS and request limits in front of it. HTTP is **single-owner**: every authenticated connection accesses that database. Do not share a token between unrelated users.
+For a remote server, bind `--host 0.0.0.0`, set a random token of at least 24 characters and `CHATQUEST_ALLOWED_HOSTS` to your public hostname. Put TLS and request limits in front of it. HTTP is **single-owner**: every authenticated connection accesses that database. Do not share a token between unrelated users.
 
 ```sh
-docker build -t branchwright .
+docker build -t chatquest-ai .
 docker run --rm -p 127.0.0.1:3333:3333 \
-  -e BRANCHWRIGHT_TOKEN -v branchwright-data:/data branchwright
+  -e CHATQUEST_TOKEN -v branchwright-data:/data chatquest-ai
 ```
 
 The Docker entrypoint binds all container interfaces, so a token is mandatory. Export it in the calling environment before running the command. The host port above remains loopback-only.
@@ -140,7 +140,7 @@ Use `read_guide(section="tools")` for the current schema for all 17 tools. Full 
 
 ## Trust, limits and status
 
-v0.2 is an early, single-owner engine. The model can still pick an unfair difficulty, leak a secret in prose or write an out-of-character line. The skill guides its decisions; it cannot guarantee compliance or override platform safety checks. The [playtest report](docs/playtest.md) separates database checks from prose review.
+v0.3 is an early, single-owner engine. The model can still pick an unfair difficulty, leak a secret in prose or write an out-of-character line. The skill guides its decisions; it cannot guarantee compliance or override platform safety checks. The [playtest report](docs/playtest.md) separates database checks from prose review.
 
 - Retrieval is local **lexical** search, not neural embeddings or a guarantee of recall.
 - Difficulty is pack-defined; the initial mechanical system is **d20**, not every tabletop ruleset.
@@ -148,6 +148,12 @@ v0.2 is an early, single-owner engine. The model can still pick an unfair diffic
 - SQLite files contain plaintext story and save data. Back them up and keep them out of Git.
 - No branch merge, save import, multiplayer isolation, automatic LLM calls or arbitrary executable plugins in this release.
 - Importing a novel doesn't grant characters the author's knowledge or make that novel redistributable.
+
+## Upgrading from Branchwright
+
+The project was renamed to ChatQuest AI in v0.3.0. Use the new `chatquest-ai` package and `chatquest` command. The `branchwright` command remains an alias. `CHATQUEST_DB`, `CHATQUEST_TOKEN` and `CHATQUEST_ALLOWED_HOSTS` take precedence over their `BRANCHWRIGHT_*` counterparts; existing settings still work when the new variables are unset.
+
+The default remains `.branchwright/state.sqlite` in the working directory. Reuse your absolute `--db` path and Docker data volume; no save migration is required. Campaign/branch IDs, receipts, tool names and `branchwright://` resource URIs remain unchanged. The original operating-skill text and folder are intentionally retained so a pending preparation does not become invalid solely because of the name change. Refresh connector metadata to see the new server name. Historical release notes and playtest receipts retain their original names.
 
 ## Develop
 
@@ -167,6 +173,6 @@ Tests include complete success and failure story routes, CLI startup, disk reope
 
 Good first contributions: an original world pack, a reproducible model failure, better CJK retrieval fixtures or an additional rules adapter with invariant tests. Please include sources and permissions for any contributed setting.
 
-If you use Branchwright, a star helps others find it. To contribute, start with a world pack or a reproducible bug. [Contribution guide →](CONTRIBUTING.md)
+If you use ChatQuest AI, a star helps others find it. To contribute, start with a world pack or a reproducible bug. [Contribution guide →](CONTRIBUTING.md)
 
-Related projects worth exploring: [text-adventure-handler-mcp](https://github.com/narrowstacks/text-adventure-handler-mcp) and [dmcp](https://github.com/shawnrushefsky/dmcp). Branchwright is an independent implementation, and is not affiliated with those projects or any model provider.
+Related projects worth exploring: [text-adventure-handler-mcp](https://github.com/narrowstacks/text-adventure-handler-mcp) and [dmcp](https://github.com/shawnrushefsky/dmcp). ChatQuest AI is an independent implementation, and is not affiliated with those projects or any model provider.

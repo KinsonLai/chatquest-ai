@@ -1,4 +1,4 @@
-# Branchwright MCP
+# ChatQuest AI
 
 以 MCP 遊玩文字冒險，保存狀態、人物見聞與不同時間線。
 
@@ -22,7 +22,7 @@
 需要 Node.js 24+：
 
 ```sh
-npx --yes --package=https://github.com/KinsonLai/branchwright-mcp/releases/download/v0.2.0/branchwright-mcp-0.2.0.tgz branchwright --demo
+npx --yes --package=https://github.com/KinsonLai/chatquest-ai/releases/download/v0.3.0/chatquest-ai-0.3.0.tgz chatquest --demo
 ```
 
 這個指令從 GitHub Release 下載套件，不用 clone，也不用 Git；目前尚未發布至 npm registry。
@@ -36,26 +36,32 @@ stdio 客戶端設定：
 ```json
 {
   "mcpServers": {
-    "branchwright": {
+    "chatquest": {
       "command": "npx",
       "args": [
         "--yes",
-        "--package=https://github.com/KinsonLai/branchwright-mcp/releases/download/v0.2.0/branchwright-mcp-0.2.0.tgz",
-        "branchwright"
+        "--package=https://github.com/KinsonLai/chatquest-ai/releases/download/v0.3.0/chatquest-ai-0.3.0.tgz",
+        "chatquest"
       ],
-      "env": { "BRANCHWRIGHT_DB": "/absolute/path/to/adventure.sqlite" }
+      "env": { "CHATQUEST_DB": "/absolute/path/to/adventure.sqlite" }
     }
   }
 }
 ```
 
-對模型說：「讀取 Branchwright 操作指南與 workflows，以 ferry 世界包從頭開新冒險。讓我選擇 Robin 的行動，分開記錄各人物所知，取得 committed:true 才說存檔成功。」已有遊戲就先列出存檔及分支，以原 ID 續玩。
+對模型說：「讀取 ChatQuest AI 操作指南與 workflows，以 ferry 世界包從頭開新冒險。讓我選擇 Robin 的行動，分開記錄各人物所知，取得 committed:true 才說存檔成功。」已有遊戲就先列出存檔及分支，以原 ID 續玩。
 
 上面是本機 stdio 設定。ChatGPT、Grok 網頁版需要遠端連接：ChatGPT 可按帳號權限使用官方 Secure MCP Tunnel；公開 HTTPS 則須處理客戶端支援的認證。公開部署需要 TLS、認證及 hostname allowlist。目前是單一擁有者資料庫，沒有內建 OAuth 或多人帳號隔離。完整步驟見[繁中連接教學](docs/clients.zh-TW.md)；各聊天產品的帳號介面連接尚未實測。
 
+## 從舊版升級
+
+v0.3.0 起名稱改為 ChatQuest AI，套件叫 `chatquest-ai`，指令叫 `chatquest`。舊的 `branchwright` 指令及 `BRANCHWRIGHT_*` 環境變數仍可用；同時設定時，以 `CHATQUEST_*` 為先。
+
+預設存檔仍是 `.branchwright/state.sqlite`，沿用原本的絕對資料庫路徑即可，不用搬檔或重建遊戲。分支 ID、收據、工具名稱、`branchwright://` resource URI，以及參與回合驗證的舊操作指南原文均保留，避免影響未提交回合。更新 connector metadata 後會看到新伺服器名稱。舊版發布紀錄與實跑逐字稿保留當時名稱。
+
 ## 正確的期望
 
-這是 v0.2 早期版本。引擎能驗證數字、版本與收據，仍須檢查模型寫出的敘事、難度與人物反應。操作指南不能解除平台安全攔截。檢索採本機 FTS5/BM25，裁定採可配置難度的 d20；目前沒有神經 embedding、分支合併、存檔匯入或完整社會模擬。
+這是 v0.3 早期版本。引擎能驗證數字、版本與收據，仍須檢查模型寫出的敘事、難度與人物反應。操作指南不能解除平台安全攔截。檢索採本機 FTS5/BM25，裁定採可配置難度的 d20；目前沒有神經 embedding、分支合併、存檔匯入或完整社會模擬。
 
 專案不含私人小說、角色、正式遊戲資料庫或專屬部署設定。只匯入你有權使用的材料，資料庫請自行備份，不要加入公開 Git。
 

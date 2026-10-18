@@ -1,4 +1,4 @@
-# Design: Branchwright 0.1
+# Design: ChatQuest AI 0.1
 
 The product is an MCP-only engine, not a chat app and not a model wrapper. A compatible client supplies an LLM; the server supplies validated state transitions. No web UI, model key, proprietary novel, deployment account or existing save is part of this repository.
 

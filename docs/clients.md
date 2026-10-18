@@ -19,7 +19,7 @@ The engine is single-owner. Everyone who can use one endpoint accesses the same 
 Install Node.js 24 or newer, including npm. The package is distributed through GitHub Releases; it has not been published to the npm registry. The pinned release URL avoids requiring Git:
 
 ```sh
-npx --yes --package=https://github.com/KinsonLai/branchwright-mcp/releases/download/v0.2.0/branchwright-mcp-0.2.0.tgz branchwright
+npx --yes --package=https://github.com/KinsonLai/chatquest-ai/releases/download/v0.3.0/chatquest-ai-0.3.0.tgz chatquest
 ```
 
 This starts stdio and waits quietly for a client. To see a complete story replay in the terminal instead, append `--demo`. To host HTTP, append `--http`. `--help` lists the options.
@@ -33,12 +33,12 @@ Use Settings → Developer → Edit Config to edit `claude_desktop_config.json`.
 ```json
 {
   "mcpServers": {
-    "branchwright": {
+    "chatquest": {
       "command": "npx",
       "args": [
         "--yes",
-        "--package=https://github.com/KinsonLai/branchwright-mcp/releases/download/v0.2.0/branchwright-mcp-0.2.0.tgz",
-        "branchwright",
+        "--package=https://github.com/KinsonLai/chatquest-ai/releases/download/v0.3.0/chatquest-ai-0.3.0.tgz",
+        "chatquest",
         "--db",
         "/absolute/path/adventure.sqlite"
       ]
@@ -47,7 +47,7 @@ Use Settings → Developer → Edit Config to edit `claude_desktop_config.json`.
 }
 ```
 
-Restart Claude Desktop and check its Developer connection status. In a new conversation, enable Branchwright and use the [opening prompt](#start-a-new-story). Do not add `--demo` to a client config: it prints a replay instead of serving MCP. Local config is a separate mechanism from Claude's cloud connectors. [Official local-server walkthrough](https://modelcontextprotocol.io/docs/develop/connect-local-servers).
+Restart Claude Desktop and check its Developer connection status. In a new conversation, enable ChatQuest AI and use the [opening prompt](#start-a-new-story). Do not add `--demo` to a client config: it prints a replay instead of serving MCP. Local config is a separate mechanism from Claude's cloud connectors. [Official local-server walkthrough](https://modelcontextprotocol.io/docs/develop/connect-local-servers).
 
 If a Windows launcher cannot resolve `npx`, use its absolute executable path. Some launchers require `"command":"cmd"` with `"args":["/c","npx", ...]`; use only fixed launch arguments, and keep the save path quoted by JSON. Check the client log before changing transports. Node 24 must be available to the launched process, not only an unrelated terminal.
 
@@ -56,13 +56,13 @@ If a Windows launcher cannot resolve `npx`, use its absolute executable path. So
 Run this from your terminal, replacing the save path:
 
 ```sh
-claude mcp add --transport stdio branchwright -- npx --yes --package=https://github.com/KinsonLai/branchwright-mcp/releases/download/v0.2.0/branchwright-mcp-0.2.0.tgz branchwright --db /absolute/path/adventure.sqlite
+claude mcp add --transport stdio chatquest -- npx --yes --package=https://github.com/KinsonLai/chatquest-ai/releases/download/v0.3.0/chatquest-ai-0.3.0.tgz chatquest --db /absolute/path/adventure.sqlite
 ```
 
 Use `/mcp` inside Claude Code to inspect the connection and review tool permissions. For a hosted server that accepts bearer credentials:
 
 ```sh
-claude mcp add --transport http branchwright https://your-host.example/mcp --header "Authorization: Bearer YOUR_PRIVATE_TOKEN"
+claude mcp add --transport http chatquest https://your-host.example/mcp --header "Authorization: Bearer YOUR_PRIVATE_TOKEN"
 ```
 
 Treat saved headers and shell history as credentials. See [Claude Code's MCP guide](https://code.claude.com/docs/en/mcp) for scopes and credential handling. The documented commands are configuration examples; this release does not claim a Claude account-level UI test.
@@ -74,17 +74,17 @@ For Claude web or Grok, the cloud service needs a public HTTPS URL ending in `/m
 macOS / Linux:
 
 ```sh
-export BRANCHWRIGHT_TOKEN="$(node -e 'process.stdout.write(require("node:crypto").randomBytes(32).toString("hex"))')"
-export BRANCHWRIGHT_ALLOWED_HOSTS="your-host.example"
-npx --yes --package=https://github.com/KinsonLai/branchwright-mcp/releases/download/v0.2.0/branchwright-mcp-0.2.0.tgz branchwright --http --db /absolute/path/adventure.sqlite
+export CHATQUEST_TOKEN="$(node -e 'process.stdout.write(require("node:crypto").randomBytes(32).toString("hex"))')"
+export CHATQUEST_ALLOWED_HOSTS="your-host.example"
+npx --yes --package=https://github.com/KinsonLai/chatquest-ai/releases/download/v0.3.0/chatquest-ai-0.3.0.tgz chatquest --http --db /absolute/path/adventure.sqlite
 ```
 
 PowerShell:
 
 ```powershell
-$env:BRANCHWRIGHT_TOKEN = node -e "process.stdout.write(require('node:crypto').randomBytes(32).toString('hex'))"
-$env:BRANCHWRIGHT_ALLOWED_HOSTS = 'your-host.example'
-npx --yes --package=https://github.com/KinsonLai/branchwright-mcp/releases/download/v0.2.0/branchwright-mcp-0.2.0.tgz branchwright --http --db D:/Games/adventure.sqlite
+$env:CHATQUEST_TOKEN = node -e "process.stdout.write(require('node:crypto').randomBytes(32).toString('hex'))"
+$env:CHATQUEST_ALLOWED_HOSTS = 'your-host.example'
+npx --yes --package=https://github.com/KinsonLai/chatquest-ai/releases/download/v0.3.0/chatquest-ai-0.3.0.tgz chatquest --http --db D:/Games/adventure.sqlite
 ```
 
 Both examples listen on loopback. Put the proxy or tunnel on the same host, forwarding to port3333. If it preserves the public Host header, allow that exact hostname; do not use a wildcard. A container or separate proxy host may need `--host 0.0.0.0`; the server requires a token of at least24 characters for that binding. TLS, persistent storage and proxy configuration are supplied by the operator. Keep the token outside the chat and Git.
@@ -99,29 +99,29 @@ Open Customize → Connectors → Add custom connector, supply the HTTPS `/mcp` 
 
 ChatGPT does not execute an `npx` command pasted into a conversation. The official connection guide provides public HTTPS and Secure MCP Tunnel routes. This release does not implement OAuth, and its static bearer token must not be described as ChatGPT OAuth. [Official ChatGPT connection guide](https://developers.openai.com/plugins/deploy/connect-chatgpt).
 
-For a private local server, use **Secure MCP Tunnel** if your account/workspace has access. It needs a tunnel ID, the appropriate Platform/workspace permissions, a tunnel runtime API key, and OpenAI's `tunnel-client`. Branchwright itself still makes no model API calls. After obtaining those prerequisites, use the official CLI setup with your own tunnel ID and save path:
+For a private local server, use **Secure MCP Tunnel** if your account/workspace has access. It needs a tunnel ID, the appropriate Platform/workspace permissions, a tunnel runtime API key, and OpenAI's `tunnel-client`. ChatQuest AI itself still makes no model API calls. After obtaining those prerequisites, use the official CLI setup with your own tunnel ID and save path:
 
 ```sh
-tunnel-client init --sample sample_mcp_stdio_local --profile branchwright --tunnel-id YOUR_TUNNEL_ID --mcp-command "npx --yes --package=https://github.com/KinsonLai/branchwright-mcp/releases/download/v0.2.0/branchwright-mcp-0.2.0.tgz branchwright --db /absolute/path/adventure.sqlite"
-tunnel-client doctor --profile branchwright --explain
-tunnel-client run --profile branchwright
+tunnel-client init --sample sample_mcp_stdio_local --profile chatquest --tunnel-id YOUR_TUNNEL_ID --mcp-command "npx --yes --package=https://github.com/KinsonLai/chatquest-ai/releases/download/v0.3.0/chatquest-ai-0.3.0.tgz chatquest --db /absolute/path/adventure.sqlite"
+tunnel-client doctor --profile chatquest --explain
+tunnel-client run --profile chatquest
 ```
 
 Provide the runtime credential through the official secure setup/environment instructions. Keep the client running. In ChatGPT Plugins, select Add custom MCP server → Connection: Tunnel, choose the tunnel, configure authentication and create/install the plugin. Enable it in a new chat. [Official tunnel prerequisites and setup](https://developers.openai.com/api/docs/guides/secure-mcp-tunnels).
 
-For public HTTPS with private saves, put a tested MCP OAuth 2.1 gateway in front of Branchwright. It must validate the incoming user token and protect access to the single-owner backend; a generic HTTPS tunnel or random URL alone does not do this. Follow [OpenAI's authentication contract](https://developers.openai.com/plugins/build/auth). The gateway and a live ChatGPT connection are **not included or verified** here. Do not turn off auth on a real save to make discovery pass. If you lack tunnel access or a gateway, use local Claude/another stdio client first.
+For public HTTPS with private saves, put a tested MCP OAuth 2.1 gateway in front of ChatQuest AI. It must validate the incoming user token and protect access to the single-owner backend; a generic HTTPS tunnel or random URL alone does not do this. Follow [OpenAI's authentication contract](https://developers.openai.com/plugins/build/auth). The gateway and a live ChatGPT connection are **not included or verified** here. Do not turn off auth on a real save to make discovery pass. If you lack tunnel access or a gateway, use local Claude/another stdio client first.
 
 ### Grok
 
 Go to [Grok Connectors](https://grok.com/connectors), choose New Connector → Custom, and enter the public HTTPS `/mcp` URL. Complete the authentication offered by that interface, then enable the connector for your conversation. If it cannot send a fixed Authorization header, a static-token-only endpoint is not enough; use a compatible OAuth gateway. Do not put the bearer token in a URL query or remove authentication from a real save. [Official Grok connector setup](https://docs.x.ai/grok/connectors).
 
-For local hosting, Grok documents [ngrok and Cloudflare tunnels](https://docs.x.ai/grok/connectors/custom-mcp-tunneling). Point a tunnel at port3333 and set `BRANCHWRIGHT_ALLOWED_HOSTS` to its assigned hostname when the Host is preserved. Keep both processes running. This release uses JSON Streamable HTTP, not legacy SSE. Tunnel setup does not prove Grok authentication or gameplay; those account-level steps remain unverified.
+For local hosting, Grok documents [ngrok and Cloudflare tunnels](https://docs.x.ai/grok/connectors/custom-mcp-tunneling). Point a tunnel at port3333 and set `CHATQUEST_ALLOWED_HOSTS` to its assigned hostname when the Host is preserved. Keep both processes running. This release uses JSON Streamable HTTP, not legacy SSE. Tunnel setup does not prove Grok authentication or gameplay; those account-level steps remain unverified.
 
 ## Start a new story
 
 Paste this after enabling the server:
 
-> Read Branchwright's operating guide and workflows. Create a new campaign from the ferry template, with a new creation key. Start at the opening before anyone reads the dispatch. Present the scene and let me choose Robin's actions. Use the server's checks, exact inventory and each character's knowledge. Give each turn a consequence and a next choice. Append the saved snapshot only after a committed receipt. Never reuse another campaign or my existing save without asking.
+> Read ChatQuest AI's operating guide and workflows. Create a new campaign from the ferry template, with a new creation key. Start at the opening before anyone reads the dispatch. Present the scene and let me choose Robin's actions. Use the server's checks, exact inventory and each character's knowledge. Give each turn a consequence and a next choice. Append the saved snapshot only after a committed receipt. Never reuse another campaign or my existing save without asking.
 
 For a different setting, use `lantern`, `signal`, `blackout`, or provide a [custom pack](world-packs.md). To resume, ask the model to list campaigns and branches, choose the existing IDs, read the current state and recent history, then continue. Refresh connector metadata after upgrading; do not recreate a campaign to fix stale tool discovery.
 

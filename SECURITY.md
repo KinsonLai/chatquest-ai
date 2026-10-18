@@ -1,6 +1,6 @@
 # Security and deployment boundary
 
-Branchwright0.1 is a single-owner local engine. Everyone with its stdio process access or HTTP bearer token controls that database. Use a separate database/process/token per unrelated user. This is not a hosted multi-tenant authorization service.
+ChatQuest AI0.1 is a single-owner local engine. Everyone with its stdio process access or HTTP bearer token controls that database. Use a separate database/process/token per unrelated user. This is not a hosted multi-tenant authorization service.
 
 HTTP binds loopback by default. Non-loopback binding requires a bearer token of at least24 characters. Set allowed public hostnames explicitly and put HTTPS, request limits and operational monitoring in front of a remote server. OAuth, token issuance and account management are not implemented. Do not advertise it as a drop-in connector for clients requiring those capabilities.
 

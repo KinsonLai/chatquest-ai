@@ -34,7 +34,7 @@ One unsupported aside remains in the raw main5 receipt: it says Jun knows Robin 
 
 `--demo` starts a new in-memory MCP server, introduces the quay scene, plays five scenes to the shelter, then plays a bridge-first IF. It uses authored, conditional prose and actual server dice. It is labelled a scripted replay and makes no model API call.
 
-It checks exact commit retries, receipt recovery, complete check lists, canon retrieval, event previews versus saved events, private NPC knowledge, fork inventory and preservation of the complete main state. It never uses `BRANCHWRIGHT_DB` or a formal save.
+It checks exact commit retries, receipt recovery, complete check lists, canon retrieval, event previews versus saved events, private NPC knowledge, fork inventory and preservation of the complete main state. It never uses `CHATQUEST_DB` or a formal save.
 
 Automated story tests force d20=1 and d20=20 through the engine's test injection to cover both full failure and full success routes. These fixed rolls are test fixtures, not live randomness or claims that every failed attempt must still succeed. The failure route loses supplies and health, retreats from the landing and reaches the shelter by the high bridge.
 

@@ -23,7 +23,7 @@ const spec =
 const sentinel = join(dir, "formal-save-must-not-exist.sqlite");
 const options = {
   cwd: dir,
-  env: { ...process.env, BRANCHWRIGHT_DB: sentinel },
+  env: { ...process.env, CHATQUEST_DB: sentinel, BRANCHWRIGHT_DB: sentinel },
 };
 const args = [
   "exec",
@@ -32,7 +32,7 @@ const args = [
   join(dir, "cache"),
   "--package=" + spec,
   "--",
-  "branchwright",
+  "chatquest",
 ];
 const output = npm([...args, "--demo"], options);
 assert.match(output, /THE LAST FERRY/);
@@ -41,6 +41,10 @@ assert.match(output, /IF: return to the first decision/);
 assert.match(output, /unchanged main/);
 assert.equal(existsSync(sentinel), false);
 assert.equal(npm([...args, "--version"], options).trim(), VERSION);
+assert.equal(
+  npm([...args.slice(0, -1), "branchwright", "--version"], options).trim(),
+  VERSION,
+);
 console.log(
   "PASS: isolated-cache package install, complete MCP story and IF, version, configured formal save untouched.",
 );

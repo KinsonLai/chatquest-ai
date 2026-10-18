@@ -7,7 +7,7 @@
 先安裝 Node.js 24+（含 npm）。不用 clone 或安裝 Git：
 
 ```sh
-npx --yes --package=https://github.com/KinsonLai/branchwright-mcp/releases/download/v0.2.0/branchwright-mcp-0.2.0.tgz branchwright
+npx --yes --package=https://github.com/KinsonLai/chatquest-ai/releases/download/v0.3.0/chatquest-ai-0.3.0.tgz chatquest
 ```
 
 這會啟動 stdio，等待 MCP 客戶端連入；終端沒有劇情輸出是正常的。要看從頭開始的故事示範，在指令最後加 `--demo`。要提供 HTTP，加 `--http`。套件來自 GitHub Release，尚未發布至 npm registry。
@@ -16,7 +16,7 @@ npx --yes --package=https://github.com/KinsonLai/branchwright-mcp/releases/downl
 
 ## Claude Desktop：本機 stdio
 
-在 Settings → Developer → Edit Config 開啟 `claude_desktop_config.json`，將 [README 的 mcpServers 設定](../README.zh-TW.md#立即試跑)合併進原設定，修改資料庫絕對路徑，然後重新啟動 Claude Desktop。在新對話啟用 Branchwright。
+在 Settings → Developer → Edit Config 開啟 `claude_desktop_config.json`，將 [README 的 mcpServers 設定](../README.zh-TW.md#立即試跑)合併進原設定，修改資料庫絕對路徑，然後重新啟動 Claude Desktop。在新對話啟用 ChatQuest AI。
 
 本機設定不等於遠端 connector。不要在客戶端設定加入 `--demo`；它會輸出示範後結束。Windows 若找不到 `npx`，先檢查 Developer 日誌與 PATH，必要時指定執行檔絕對路徑；某些啟動器需要固定的 `cmd /c npx` 參數。[官方本機 MCP 教學](https://modelcontextprotocol.io/docs/develop/connect-local-servers)。
 
@@ -25,7 +25,7 @@ npx --yes --package=https://github.com/KinsonLai/branchwright-mcp/releases/downl
 更換路徑後執行：
 
 ```sh
-claude mcp add --transport stdio branchwright -- npx --yes --package=https://github.com/KinsonLai/branchwright-mcp/releases/download/v0.2.0/branchwright-mcp-0.2.0.tgz branchwright --db /absolute/path/adventure.sqlite
+claude mcp add --transport stdio chatquest -- npx --yes --package=https://github.com/KinsonLai/chatquest-ai/releases/download/v0.3.0/chatquest-ai-0.3.0.tgz chatquest --db /absolute/path/adventure.sqlite
 ```
 
 在 Claude Code 用 `/mcp` 檢查連線及工具權限。遠端 HTTP 可使用 Authorization header，完整指令見[英文教學](clients.md#claude-code)。[Claude Code 官方文件](https://code.claude.com/docs/en/mcp)。
@@ -35,9 +35,9 @@ claude mcp add --transport stdio branchwright -- npx --yes --package=https://git
 在 ChatGPT 對話貼上 npx 指令，不會讓它在你的電腦啟動程式。可採以下路線：
 
 1. **官方 Secure MCP Tunnel**：適合本機資料庫。需要可用的 Platform 組織／ChatGPT workspace 權限、tunnel ID、通道 runtime API key 及 `tunnel-client`。引擎本身仍不呼叫模型 API。
-2. **公開 HTTPS `/mcp`**：正式私人存檔需另設符合 MCP 的 OAuth gateway。Branchwright 只有固定 bearer token，沒有內建 OAuth；不能把它當成 ChatGPT 可直接完成的 OAuth 登入。
+2. **公開 HTTPS `/mcp`**：正式私人存檔需另設符合 MCP 的 OAuth gateway。ChatQuest AI 只有固定 bearer token，沒有內建 OAuth；不能把它當成 ChatGPT 可直接完成的 OAuth 登入。
 
-私有通道路線：按[官方文件](https://developers.openai.com/api/docs/guides/secure-mcp-tunnels)建立通道並安全提供 runtime credential，再配置 `tunnel-client` 將請求轉到 Branchwright 的 npx stdio 指令。[可替換參數的完整指令](clients.md#chatgpt)已附在英文教學。執行 `doctor` 確認設定後，保持 `run` 運作。
+私有通道路線：按[官方文件](https://developers.openai.com/api/docs/guides/secure-mcp-tunnels)建立通道並安全提供 runtime credential，再配置 `tunnel-client` 將請求轉到 ChatQuest AI 的 npx stdio 指令。[可替換參數的完整指令](clients.md#chatgpt)已附在英文教學。執行 `doctor` 確認設定後，保持 `run` 運作。
 
 在 ChatGPT Plugins 選 Add custom MCP server，Connection 選 Tunnel，指定同一個 tunnel，再完成認證、建立並安裝 plugin。新對話啟用它後才開始遊戲。若通道不在清單，核對 workspace 關聯及權限。[官方連接步驟](https://developers.openai.com/plugins/deploy/connect-chatgpt)。
 
@@ -56,7 +56,7 @@ claude mcp add --transport stdio branchwright -- npx --yes --package=https://git
 
 連好後對模型說：
 
-> 讀取 Branchwright 的操作指南與 workflows。用 ferry 世界包及新的 creation key 建立獨立遊戲，從未讀公文的碼頭開場，讓我選 Robin 的行動。依伺服器裁定承接成功與失敗，精確扣除物資。人物只能使用自己見過或被告知的消息，對話要符合年齡與經歷。每回合有結果與下一個選擇，取得 committed:true 後才附上伺服器狀態快照。
+> 讀取 ChatQuest AI 的操作指南與 workflows。用 ferry 世界包及新的 creation key 建立獨立遊戲，從未讀公文的碼頭開場，讓我選 Robin 的行動。依伺服器裁定承接成功與失敗，精確扣除物資。人物只能使用自己見過或被告知的消息，對話要符合年齡與經歷。每回合有結果與下一個選擇，取得 committed:true 後才附上伺服器狀態快照。
 
 續玩時先列出 campaigns／branches，使用原 ID 讀取狀態和歷史，不另建存檔。升級後先重新啟動伺服器、refresh 工具 metadata，再開新對話。
 
