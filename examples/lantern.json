@@ -1,0 +1,84 @@
+{
+  "id": "lantern",
+  "name": "The Last Lantern",
+  "genre": "folk fantasy",
+  "premise": "A bridge-town lighthouse went dark. Decide whom to trust before the river fog arrives.",
+  "player": {
+    "name": "Tamsin",
+    "attributes": {
+      "presence": 2,
+      "insight": 3,
+      "agility": 2
+    },
+    "vitals": {
+      "health": {
+        "current": 10,
+        "max": 10
+      },
+      "resolve": {
+        "current": 7,
+        "max": 10
+      }
+    }
+  },
+  "actors": {
+    "mira": {
+      "name": "Mira",
+      "age": 31,
+      "experience": [
+        "Maintained river lamps for twelve years",
+        "Knows bridge toll routines, not hidden court affairs"
+      ],
+      "intent": "Keep the town safe without surrendering her family workshop",
+      "location": "Lantern Quay"
+    }
+  },
+  "initial": {
+    "location": "Lantern Quay",
+    "resources": {
+      "credits": 20
+    },
+    "inventory": {
+      "notebook": 1,
+      "torch": 1
+    },
+    "goals": ["Investigate the central mystery without losing your companions"]
+  },
+  "rules": {
+    "difficulties": {
+      "easy": 8,
+      "standard": 12,
+      "hard": 18,
+      "extreme": 25
+    },
+    "checks_per_turn": 3,
+    "tick_minutes": 60
+  },
+  "events": [
+    {
+      "id": "arrival",
+      "title": "An arrival",
+      "description": "A rope-tied skiff reaches the quay.",
+      "chance": 0.65,
+      "locations": ["Lantern Quay"],
+      "cooldown_minutes": 120,
+      "visibility": "public"
+    },
+    {
+      "id": "pressure",
+      "title": "A distant complication",
+      "description": "An unseen faction begins looking for the same answer.",
+      "chance": 0.3,
+      "locations": ["Lantern Quay"],
+      "cooldown_minutes": 180,
+      "visibility": "gm"
+    }
+  ],
+  "canon": [
+    {
+      "id": "opening",
+      "title": "The Last Lantern setting notes",
+      "text": "The bridge tollkeeper keeps a copper key. The old lighthouse has no keeper tonight."
+    }
+  ]
+}

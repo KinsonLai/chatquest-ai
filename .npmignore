@@ -1,0 +1,9 @@
+node_modules/
+.branchwright/
+*.sqlite*
+*.db
+.env*
+.git/
+tests/
+scripts/
+reports/

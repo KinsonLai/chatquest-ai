@@ -1,0 +1,59 @@
+{
+  "name": "branchwright-mcp",
+  "version": "0.1.0",
+  "description": "A headless MCP engine for persistent, branching LLM adventures. Your model tells the story; SQLite keeps the receipts.",
+  "type": "module",
+  "license": "MIT",
+  "engines": {
+    "node": ">=24.0.0"
+  },
+  "bin": {
+    "branchwright": "src/cli.mjs"
+  },
+  "files": [
+    "src",
+    "examples",
+    "skills",
+    "docs",
+    "README.md",
+    "README.zh-TW.md",
+    "LICENSE",
+    "SECURITY.md",
+    "CONTRIBUTING.md",
+    "CHANGELOG.md"
+  ],
+  "scripts": {
+    "start": "node src/cli.mjs",
+    "start:http": "node src/cli.mjs --http",
+    "test": "node --test tests/*.test.mjs",
+    "demo": "node scripts/demo.mjs",
+    "check:release": "node scripts/check-release.mjs",
+    "format:check": "prettier --check \"**/*.{mjs,json,md,yml}\"",
+    "format": "prettier --write \"**/*.{mjs,json,md,yml}\""
+  },
+  "keywords": [
+    "mcp",
+    "text-adventure",
+    "interactive-fiction",
+    "rpg",
+    "llm",
+    "game-master",
+    "sqlite",
+    "branching-narrative"
+  ],
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "1.32.1",
+    "zod": "4.6.7"
+  },
+  "devDependencies": {
+    "prettier": "3.9.10"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/KinsonLai/branchwright-mcp.git"
+  },
+  "homepage": "https://github.com/KinsonLai/branchwright-mcp",
+  "bugs": {
+    "url": "https://github.com/KinsonLai/branchwright-mcp/issues"
+  }
+}
