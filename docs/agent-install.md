@@ -38,21 +38,22 @@ Use this release descriptor. These values refer to the published artifact, not a
 ```json
 {
   "name": "chatquest-ai",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "node_minimum_major": 24,
-  "url": "https://github.com/KinsonLai/chatquest-ai/releases/download/v0.3.0/chatquest-ai-0.3.0.tgz",
-  "sha256": "d5b2aae3906a94fac51374c30ca4a452a9b3cd83774effebd756d17d25af54d2",
+  "url": "https://github.com/KinsonLai/chatquest-ai/releases/download/v0.3.1/chatquest-ai-0.3.1.tgz",
+  "release_metadata_url": "https://api.github.com/repos/KinsonLai/chatquest-ai/releases/tags/v0.3.1",
+  "digest_source": "assets entry named chatquest-ai-0.3.1.tgz, digest field",
   "entrypoint": "node_modules/chatquest-ai/src/cli.mjs",
   "tool_count": 17
 }
 ```
 
-Download the archive to a temporary directory with your normal HTTP/file tools. Compute its SHA-256 and compare it to the descriptor before installing. Stop on a mismatch; do not disable verification. Keep the archive name separate from shell commands and quote local paths.
+Read the release metadata URL and find the asset with the exact archive name. Require its browser_download_url to match the descriptor URL and its digest to be a SHA-256 value. Download the archive to a temporary directory with your normal HTTP/file tools, compute its SHA-256 and compare it to that published digest before installing. Stop if the digest is missing or mismatched; do not disable verification. Keep the archive name separate from shell commands and quote local paths.
 
-Choose a user-owned versioned prefix such as `<home>/.chatquest-ai/runtime/0.3.0`. If that prefix already contains a working installation of this version, reuse it. Otherwise install the verified local archive:
+Choose a user-owned versioned prefix such as `<home>/.chatquest-ai/runtime/0.3.1`. If that prefix already contains a working installation of this version, reuse it. Otherwise install the verified local archive:
 
 ```sh
-npm install --prefix "/absolute/install-prefix" --ignore-scripts --omit=dev "/absolute/download/chatquest-ai-0.3.0.tgz"
+npm install --prefix "/absolute/install-prefix" --ignore-scripts --omit=dev "/absolute/download/chatquest-ai-0.3.1.tgz"
 ```
 
 Use an empty prefix for a fresh install. Do not install globally, use `sudo`, or overwrite another version's runtime. Resolve the installed entrypoint and check it with the absolute Node executable:
@@ -63,7 +64,7 @@ node "/absolute/install-prefix/node_modules/chatquest-ai/src/cli.mjs" --help
 node "/absolute/install-prefix/node_modules/chatquest-ai/src/cli.mjs" --demo
 ```
 
-Expect version `0.3.0`. The demo must finish five main scenes and a historical IF, ending with its verification message. It uses an in-memory child server and authored prose; it does not call a model or prove the chat client's connection. Do not pass the user's database to the demo.
+Expect version `0.3.1`. The demo must finish five main scenes and a historical IF, ending with its verification message. It uses an in-memory child server and authored prose; it does not call a model or prove the chat client's connection. Do not pass the user's database to the demo.
 
 For a client that already runs the pinned npx command successfully, you may keep that installation method instead. The [client guide](clients.md#one-line-launch) has the exact command. A stable local Node/entrypoint pair avoids npx launcher and PATH differences between a terminal and a desktop app.
 
@@ -123,4 +124,4 @@ This procedure does not publish a server, submit a plugin, install into other cl
 
 ## Verification of this guide
 
-On 2026-10-18, a local harness followed the download, checksum, isolated install and demo steps. It merged a fixture client config containing an unrelated server and a legacy save path, checked the backup and preserved fields, then launched the installed entrypoint with a disposable database. MCP initialization, 17-tool discovery, both guide reads and an empty campaign list passed. The configured formal database was not created or changed. This used a fixture configuration, not a real chat application's settings; product-UI activation and remote login were not tested.
+On 2026-10-18, a local harness using the v0.3.0 archive followed the download, checksum, isolated install and demo steps. It merged a fixture client config containing an unrelated server and a legacy save path, checked the backup and preserved fields, then launched the installed entrypoint with a disposable database. MCP initialization, 17-tool discovery, both guide reads and an empty campaign list passed. The configured formal database was not created or changed. This used a fixture configuration, not a real chat application's settings; product-UI activation and remote login were not tested.

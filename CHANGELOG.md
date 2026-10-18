@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.3.1
+
+Server-handled failures now include chat-side retry instructions: recover an existing receipt or retry the exact authorized request once, without making the player repeat their prompt. Validation and permission failures are not marked retryable. Added MCP fault-injection tests for pre-write failure, lost post-commit response, SQLite contention and permanent errors. No change to the save schema or operating-policy bytes. Client-side safety blocks remain outside this handler.
+
 ## 0.3.0
 
 Renamed the project and GitHub repository to ChatQuest AI (`chatquest-ai`), with a `chatquest` CLI. Updated current READMEs, client guides and npx release commands. Retained the `branchwright` CLI alias, old environment variables, default save path, resource URIs, operating policy and database schema. Added a v0.2 save/receipt/pending-check compatibility fixture and configuration precedence tests. Historical records keep their original branding.
