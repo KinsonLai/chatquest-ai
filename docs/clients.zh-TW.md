@@ -9,7 +9,7 @@
 先安裝 Node.js 24+（含 npm）。不用 clone 或安裝 Git：
 
 ```sh
-npx --yes --package=https://github.com/KinsonLai/chatquest-ai/releases/download/v0.3.1/chatquest-ai-0.3.1.tgz chatquest
+npx --yes --package=https://github.com/KinsonLai/chatquest-ai/releases/download/v0.4.0/chatquest-ai-0.4.0.tgz chatquest
 ```
 
 這會啟動 stdio，等待 MCP 客戶端連入；終端沒有劇情輸出是正常的。要看從頭開始的故事示範，在指令最後加 `--demo`。要提供 HTTP，加 `--http`。套件來自 GitHub Release，尚未發布至 npm registry。
@@ -27,7 +27,7 @@ npx --yes --package=https://github.com/KinsonLai/chatquest-ai/releases/download/
 更換路徑後執行：
 
 ```sh
-claude mcp add --transport stdio chatquest -- npx --yes --package=https://github.com/KinsonLai/chatquest-ai/releases/download/v0.3.1/chatquest-ai-0.3.1.tgz chatquest --db /absolute/path/adventure.sqlite
+claude mcp add --transport stdio chatquest -- npx --yes --package=https://github.com/KinsonLai/chatquest-ai/releases/download/v0.4.0/chatquest-ai-0.4.0.tgz chatquest --db /absolute/path/adventure.sqlite
 ```
 
 在 Claude Code 用 `/mcp` 檢查連線及工具權限。遠端 HTTP 可使用 Authorization header，完整指令見[英文教學](clients.md#claude-code)。[Claude Code 官方文件](https://code.claude.com/docs/en/mcp)。

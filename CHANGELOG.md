@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.4.0
+
+Optional checks and world previews in `prepare_turn` reduce round trips while retaining existing dice, proof and commit validation. Added stale-revision protection for bundled dice, atomic rollback/replay tests, a completed MCP story with an independent IF, and a reproducible localhost HTTP benchmark. Updated the operating workflows to avoid refetching canon text, character knowledge and a policy already in context. Save schema and legacy policy bytes remain unchanged.
+
 ## 0.3.1
 
 Server-handled failures now include chat-side retry instructions: recover an existing receipt or retry the exact authorized request once, without making the player repeat their prompt. Validation and permission failures are not marked retryable. Added MCP fault-injection tests for pre-write failure, lost post-commit response, SQLite contention and permanent errors. No change to the save schema or operating-policy bytes. Client-side safety blocks remain outside this handler.

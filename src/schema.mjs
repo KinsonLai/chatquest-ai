@@ -4,6 +4,19 @@ const text = (max = 500) => z.string().trim().min(1).max(max),
   key = text(120),
   json = z.json();
 const scope = { campaign_id: id, branch_id: id };
+const checkFields = {
+  check_id: id,
+  purpose: text(400),
+  attribute: text(80),
+  difficulty: text(80),
+  situational: z.number().int().min(-5).max(5).default(0),
+  basis: text(500).optional(),
+  stakes: text(500),
+};
+const previewFields = {
+  elapsed_minutes: z.number().int().min(0).max(1440),
+  destination: text(200).optional(),
+};
 const numbers = z.record(text(80), z.number().int().min(-1000000).max(1000000));
 const vital = z
   .object({
@@ -215,13 +228,16 @@ export const definitions = {
     z.object({ ...scope, viewer: text(80) }).strict(),
   ),
   prepare_turn: def(
-    "Prepare an exact player action against the current revision. Returns state, canon, GM context, policy and all pending checks. Does not advance the story.",
+    "Prepare an exact player action; returns state, canon text, character knowledge, policy and all checks. Optional checks persist predeclared dice (requires expected_revision); optional world_preview includes events. Saves round trips, never commits the story.",
     z
       .object({
         ...scope,
         player_action: text(2000),
         query: text(500).optional(),
         known_policy_sha256: text(64).optional(),
+        expected_revision: z.number().int().min(0).optional(),
+        checks: z.array(z.object(checkFields).strict()).max(10).optional(),
+        world_preview: z.object(previewFields).strict().optional(),
       })
       .strict(),
     true,
@@ -232,13 +248,7 @@ export const definitions = {
       .object({
         ...scope,
         preparation_id: id,
-        check_id: id,
-        purpose: text(400),
-        attribute: text(80),
-        difficulty: text(80),
-        situational: z.number().int().min(-5).max(5).default(0),
-        basis: text(500).optional(),
-        stakes: text(500),
+        ...checkFields,
       })
       .strict(),
     true,
@@ -248,8 +258,7 @@ export const definitions = {
     z
       .object({
         ...scope,
-        elapsed_minutes: z.number().int().min(0).max(1440),
-        destination: text(200).optional(),
+        ...previewFields,
       })
       .strict(),
   ),

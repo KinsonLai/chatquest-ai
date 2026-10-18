@@ -10,6 +10,12 @@ Read the tools index, then call `create_campaign` with a name, a bundled templat
 
 Use the `gm` packet for authoring, not as NPC dialogue. Consult `get_knowledge` for an actor's last observed facts. New canon does not automatically inform any character.
 
+For fewer round trips, `prepare_turn` can also accept `checks` and `world_preview`. Only bundle checks when their attribute, difficulty and stakes are already justified by confirmed context; supply `expected_revision` from the last confirmed state. Each check has the same fields as `roll_check`, except scope and preparation ID. The returned `adjudication_checks` and context hash include every persisted result, including earlier pending checks. If any part fails, the whole preparation/check batch rolls back. Repeating the exact successful request retrieves the same rolls; changing stakes still rejects. The saved story revision does not advance until commit.
+
+`world_preview:{elapsed_minutes,destination?}` returns the same result as `preview_world`, under `world_preview`. Use it only when time and destination are known before rolling. If a result determines travel time or the next check's stakes, keep those calls sequential. Never skip a needed check or guess a duration just to stay at two calls. See [examples and measurements](performance.md).
+
+The prepared `gm.knowledge` already contains each actor's last observations, and `canon.hits` includes the full text of each returned chunk plus its citation. Read those fields directly. Use separate `get_knowledge`/`read_canon` calls when data is missing, no longer in context, or needs refreshing; do not refetch identical content. All characters' boundaries still apply.
+
 `commit_turn` requires the same action, preparation, expected revision and policy; a stable key; `narration`, `summary`, `outcome` with `resolved_action`, `consequence`, `next_decision`; and typed `changes`. Use `{}` when nothing numerical changed. Optional `fact_updates` and `knowledge_updates` record only what happened. The response includes a revision, event ID, complete checks, automatic repairs and a server snapshot. Only `committed:true` confirms the result.
 
 ## Dice and world time
@@ -29,7 +35,7 @@ Read every pending result, not just successes. Supply `check_results:[{check_id,
 
 ## Canon, history and IF
 
-`ingest_canon` accepts supplied text, never local paths or URLs. Source IDs are immutable: new editions use new IDs. Search with concrete words and then `read_canon` by the returned chunk ID. Citations include source hash and line ranges. Retrieval is lexical FTS5/BM25 with CJK bigrams, not a neural embedding claim. Very long source lines remain a single citation chunk; split documents into reasonable paragraphs when importing.
+`ingest_canon` accepts supplied text, never local paths or URLs. Source IDs are immutable: new editions use new IDs. Search with concrete words and read the returned chunk text before citing it. Use `read_canon` by chunk ID to reread it when needed. Citations include source hash and line ranges. Retrieval is lexical FTS5/BM25 with CJK bigrams, not a neural embedding claim. Very long source lines remain a single citation chunk; split documents into reasonable paragraphs when importing.
 
 `create_branch` takes the source scope, optional `from_revision`, name, premise and stable key. It copies that exact snapshot, including facts, knowledge and clocks. Revision0 of an IF is its fork point. No pending checks are copied. Forks never automatically merge back.
 

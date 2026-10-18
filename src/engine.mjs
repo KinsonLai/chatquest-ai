@@ -292,6 +292,23 @@ export class Engine {
         sha(b.state),
         policy,
       ]);
+    if (a.checks?.length && a.expected_revision === undefined)
+      fail(
+        "REVISION_REQUIRED",
+        "Bundled checks require expected_revision from the last confirmed state; otherwise prepare first.",
+      );
+    if (a.expected_revision !== undefined && a.expected_revision !== b.revision)
+      fail(
+        "REVISION_CHANGED",
+        "Revision changed. Read the current state before choosing checks or stakes.",
+      );
+    const preview = a.world_preview
+      ? this.preview_world({
+          campaign_id: a.campaign_id,
+          branch_id: a.branch_id,
+          ...a.world_preview,
+        })
+      : undefined;
     this.store.run(
       "INSERT OR IGNORE INTO preparations VALUES(?,?,?,?,?,?,?,?)",
       id,
@@ -303,6 +320,13 @@ export class Engine {
       policy,
       stamp(),
     );
+    for (const check of a.checks ?? [])
+      this.roll_check({
+        campaign_id: a.campaign_id,
+        branch_id: a.branch_id,
+        preparation_id: id,
+        ...check,
+      });
     return {
       campaign_id: a.campaign_id,
       branch_id: a.branch_id,
@@ -325,6 +349,7 @@ export class Engine {
       canon: a.query
         ? search(this.store, a.campaign_id, a.query, 3)
         : { hits: [] },
+      ...(preview ? { world_preview: preview } : {}),
     };
   }
   proof(a, b) {

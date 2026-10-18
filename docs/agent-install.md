@@ -38,11 +38,11 @@ Use this release descriptor. These values refer to the published artifact, not a
 ```json
 {
   "name": "chatquest-ai",
-  "version": "0.3.1",
+  "version": "0.4.0",
   "node_minimum_major": 24,
-  "url": "https://github.com/KinsonLai/chatquest-ai/releases/download/v0.3.1/chatquest-ai-0.3.1.tgz",
-  "release_metadata_url": "https://api.github.com/repos/KinsonLai/chatquest-ai/releases/tags/v0.3.1",
-  "digest_source": "assets entry named chatquest-ai-0.3.1.tgz, digest field",
+  "url": "https://github.com/KinsonLai/chatquest-ai/releases/download/v0.4.0/chatquest-ai-0.4.0.tgz",
+  "release_metadata_url": "https://api.github.com/repos/KinsonLai/chatquest-ai/releases/tags/v0.4.0",
+  "digest_source": "assets entry named chatquest-ai-0.4.0.tgz, digest field",
   "entrypoint": "node_modules/chatquest-ai/src/cli.mjs",
   "tool_count": 17
 }
@@ -50,10 +50,10 @@ Use this release descriptor. These values refer to the published artifact, not a
 
 Read the release metadata URL and find the asset with the exact archive name. Require its browser_download_url to match the descriptor URL and its digest to be a SHA-256 value. Download the archive to a temporary directory with your normal HTTP/file tools, compute its SHA-256 and compare it to that published digest before installing. Stop if the digest is missing or mismatched; do not disable verification. Keep the archive name separate from shell commands and quote local paths.
 
-Choose a user-owned versioned prefix such as `<home>/.chatquest-ai/runtime/0.3.1`. If that prefix already contains a working installation of this version, reuse it. Otherwise install the verified local archive:
+Choose a user-owned versioned prefix such as `<home>/.chatquest-ai/runtime/0.4.0`. If that prefix already contains a working installation of this version, reuse it. Otherwise install the verified local archive:
 
 ```sh
-npm install --prefix "/absolute/install-prefix" --ignore-scripts --omit=dev "/absolute/download/chatquest-ai-0.3.1.tgz"
+npm install --prefix "/absolute/install-prefix" --ignore-scripts --omit=dev "/absolute/download/chatquest-ai-0.4.0.tgz"
 ```
 
 Use an empty prefix for a fresh install. Do not install globally, use `sudo`, or overwrite another version's runtime. Resolve the installed entrypoint and check it with the absolute Node executable:
@@ -64,7 +64,7 @@ node "/absolute/install-prefix/node_modules/chatquest-ai/src/cli.mjs" --help
 node "/absolute/install-prefix/node_modules/chatquest-ai/src/cli.mjs" --demo
 ```
 
-Expect version `0.3.1`. The demo must finish five main scenes and a historical IF, ending with its verification message. It uses an in-memory child server and authored prose; it does not call a model or prove the chat client's connection. Do not pass the user's database to the demo.
+Expect version `0.4.0`. The demo must finish five main scenes and a historical IF, ending with its verification message. It uses an in-memory child server and authored prose; it does not call a model or prove the chat client's connection. Do not pass the user's database to the demo.
 
 For a client that already runs the pinned npx command successfully, you may keep that installation method instead. The [client guide](clients.md#one-line-launch) has the exact command. A stable local Node/entrypoint pair avoids npx launcher and PATH differences between a terminal and a desktop app.
 

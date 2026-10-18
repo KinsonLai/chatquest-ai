@@ -47,7 +47,7 @@ If you want an agent to install and configure it, give it this prompt:
 Requires Node.js 24+ and npm. Try the story without cloning the repo:
 
 ```sh
-npx --yes --package=https://github.com/KinsonLai/chatquest-ai/releases/download/v0.3.1/chatquest-ai-0.3.1.tgz chatquest --demo
+npx --yes --package=https://github.com/KinsonLai/chatquest-ai/releases/download/v0.4.0/chatquest-ai-0.4.0.tgz chatquest --demo
 ```
 
 The package downloads from GitHub Releases; it isn't published on the npm registry yet.
@@ -57,7 +57,7 @@ _The Last Ferry_ starts at a quay before a flood. The demo plays five scenes, th
 For MCP clients, omit `--demo`:
 
 ```sh
-npx --yes --package=https://github.com/KinsonLai/chatquest-ai/releases/download/v0.3.1/chatquest-ai-0.3.1.tgz chatquest
+npx --yes --package=https://github.com/KinsonLai/chatquest-ai/releases/download/v0.4.0/chatquest-ai-0.4.0.tgz chatquest
 ```
 
 This waits for a stdio client. Add `--http` to serve `http://127.0.0.1:3333/mcp`, or `--help` for options. Use an absolute `--db` path in client settings to resume the same save. [Connection instructions for ChatGPT, Claude and Grok →](docs/clients.md)
@@ -82,7 +82,7 @@ Then connect a client using stdio:
       "command": "npx",
       "args": [
         "--yes",
-        "--package=https://github.com/KinsonLai/chatquest-ai/releases/download/v0.3.1/chatquest-ai-0.3.1.tgz",
+        "--package=https://github.com/KinsonLai/chatquest-ai/releases/download/v0.4.0/chatquest-ai-0.4.0.tgz",
         "chatquest"
       ],
       "env": { "CHATQUEST_DB": "/absolute/path/to/my-adventure.sqlite" }
@@ -100,6 +100,8 @@ Ask your client:
 For an existing campaign, list campaigns and branches instead of creating a new one.
 
 Recoverable server errors include a `retry` instruction for the chat client: check for an existing receipt, then retry the original authorized call once without asking you to repeat your prompt. This is client guidance, not an enforced hook, and it cannot handle a request blocked before it reaches the server.
+
+To reduce waiting between scenes, `prepare_turn` can include checks and a world preview when their inputs are already known. That lets those scenes use two calls rather than four, with the same commit validation. See [examples and local measurements](docs/performance.md); dependent checks still need separate calls.
 
 ## Four original starting worlds
 

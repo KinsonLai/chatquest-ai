@@ -1,6 +1,6 @@
 {
   "name": "chatquest-ai",
-  "version": "0.3.1",
+  "version": "0.4.0",
   "description": "MCP server for text adventures with saved state, character knowledge, server dice and alternative timelines.",
   "type": "module",
   "license": "MIT",
@@ -28,6 +28,7 @@
     "start:http": "node src/cli.mjs --http",
     "test": "node --test tests/*.test.mjs",
     "demo": "node scripts/demo.mjs",
+    "benchmark": "node scripts/benchmark.mjs",
     "check:release": "node scripts/check-release.mjs",
     "check:package": "node scripts/smoke-package.mjs",
     "format:check": "prettier --check \"**/*.{mjs,json,md,yml}\"",

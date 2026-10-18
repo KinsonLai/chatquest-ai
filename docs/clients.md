@@ -21,7 +21,7 @@ The engine is single-owner. Everyone who can use one endpoint accesses the same 
 Install Node.js 24 or newer, including npm. The package is distributed through GitHub Releases; it has not been published to the npm registry. The pinned release URL avoids requiring Git:
 
 ```sh
-npx --yes --package=https://github.com/KinsonLai/chatquest-ai/releases/download/v0.3.1/chatquest-ai-0.3.1.tgz chatquest
+npx --yes --package=https://github.com/KinsonLai/chatquest-ai/releases/download/v0.4.0/chatquest-ai-0.4.0.tgz chatquest
 ```
 
 This starts stdio and waits quietly for a client. To see a complete story replay in the terminal instead, append `--demo`. To host HTTP, append `--http`. `--help` lists the options.
@@ -39,7 +39,7 @@ Use Settings → Developer → Edit Config to edit `claude_desktop_config.json`.
       "command": "npx",
       "args": [
         "--yes",
-        "--package=https://github.com/KinsonLai/chatquest-ai/releases/download/v0.3.1/chatquest-ai-0.3.1.tgz",
+        "--package=https://github.com/KinsonLai/chatquest-ai/releases/download/v0.4.0/chatquest-ai-0.4.0.tgz",
         "chatquest",
         "--db",
         "/absolute/path/adventure.sqlite"
@@ -58,7 +58,7 @@ If a Windows launcher cannot resolve `npx`, use its absolute executable path. So
 Run this from your terminal, replacing the save path:
 
 ```sh
-claude mcp add --transport stdio chatquest -- npx --yes --package=https://github.com/KinsonLai/chatquest-ai/releases/download/v0.3.1/chatquest-ai-0.3.1.tgz chatquest --db /absolute/path/adventure.sqlite
+claude mcp add --transport stdio chatquest -- npx --yes --package=https://github.com/KinsonLai/chatquest-ai/releases/download/v0.4.0/chatquest-ai-0.4.0.tgz chatquest --db /absolute/path/adventure.sqlite
 ```
 
 Use `/mcp` inside Claude Code to inspect the connection and review tool permissions. For a hosted server that accepts bearer credentials:
@@ -78,7 +78,7 @@ macOS / Linux:
 ```sh
 export CHATQUEST_TOKEN="$(node -e 'process.stdout.write(require("node:crypto").randomBytes(32).toString("hex"))')"
 export CHATQUEST_ALLOWED_HOSTS="your-host.example"
-npx --yes --package=https://github.com/KinsonLai/chatquest-ai/releases/download/v0.3.1/chatquest-ai-0.3.1.tgz chatquest --http --db /absolute/path/adventure.sqlite
+npx --yes --package=https://github.com/KinsonLai/chatquest-ai/releases/download/v0.4.0/chatquest-ai-0.4.0.tgz chatquest --http --db /absolute/path/adventure.sqlite
 ```
 
 PowerShell:
@@ -86,7 +86,7 @@ PowerShell:
 ```powershell
 $env:CHATQUEST_TOKEN = node -e "process.stdout.write(require('node:crypto').randomBytes(32).toString('hex'))"
 $env:CHATQUEST_ALLOWED_HOSTS = 'your-host.example'
-npx --yes --package=https://github.com/KinsonLai/chatquest-ai/releases/download/v0.3.1/chatquest-ai-0.3.1.tgz chatquest --http --db D:/Games/adventure.sqlite
+npx --yes --package=https://github.com/KinsonLai/chatquest-ai/releases/download/v0.4.0/chatquest-ai-0.4.0.tgz chatquest --http --db D:/Games/adventure.sqlite
 ```
 
 Both examples listen on loopback. Put the proxy or tunnel on the same host, forwarding to port3333. If it preserves the public Host header, allow that exact hostname; do not use a wildcard. A container or separate proxy host may need `--host 0.0.0.0`; the server requires a token of at least24 characters for that binding. TLS, persistent storage and proxy configuration are supplied by the operator. Keep the token outside the chat and Git.
@@ -104,7 +104,7 @@ ChatGPT does not execute an `npx` command pasted into a conversation. The offici
 For a private local server, use **Secure MCP Tunnel** if your account/workspace has access. It needs a tunnel ID, the appropriate Platform/workspace permissions, a tunnel runtime API key, and OpenAI's `tunnel-client`. ChatQuest AI itself still makes no model API calls. After obtaining those prerequisites, use the official CLI setup with your own tunnel ID and save path:
 
 ```sh
-tunnel-client init --sample sample_mcp_stdio_local --profile chatquest --tunnel-id YOUR_TUNNEL_ID --mcp-command "npx --yes --package=https://github.com/KinsonLai/chatquest-ai/releases/download/v0.3.1/chatquest-ai-0.3.1.tgz chatquest --db /absolute/path/adventure.sqlite"
+tunnel-client init --sample sample_mcp_stdio_local --profile chatquest --tunnel-id YOUR_TUNNEL_ID --mcp-command "npx --yes --package=https://github.com/KinsonLai/chatquest-ai/releases/download/v0.4.0/chatquest-ai-0.4.0.tgz chatquest --db /absolute/path/adventure.sqlite"
 tunnel-client doctor --profile chatquest --explain
 tunnel-client run --profile chatquest
 ```

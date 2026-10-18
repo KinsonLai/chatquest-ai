@@ -32,7 +32,7 @@
 需要 Node.js 24+：
 
 ```sh
-npx --yes --package=https://github.com/KinsonLai/chatquest-ai/releases/download/v0.3.1/chatquest-ai-0.3.1.tgz chatquest --demo
+npx --yes --package=https://github.com/KinsonLai/chatquest-ai/releases/download/v0.4.0/chatquest-ai-0.4.0.tgz chatquest --demo
 ```
 
 指令會從 GitHub Release 下載套件，不用 clone 或安裝 Git。目前還沒發布到 npm registry。
@@ -52,7 +52,7 @@ stdio 客戶端設定：
       "command": "npx",
       "args": [
         "--yes",
-        "--package=https://github.com/KinsonLai/chatquest-ai/releases/download/v0.3.1/chatquest-ai-0.3.1.tgz",
+        "--package=https://github.com/KinsonLai/chatquest-ai/releases/download/v0.4.0/chatquest-ai-0.4.0.tgz",
         "chatquest"
       ],
       "env": { "CHATQUEST_DB": "/absolute/path/to/adventure.sqlite" }
@@ -64,6 +64,8 @@ stdio 客戶端設定：
 連好後，可以對模型說：「讀取 ChatQuest AI 操作指南與 workflows，以 ferry 世界包從頭開新冒險。讓我選擇 Robin 的行動，分開記錄各人物所知，取得 committed:true 才說存檔成功。」要續玩就先列出存檔和分支，使用原 ID。
 
 可恢復的伺服器錯誤會附上 `retry` 提示，請聊天端先查收據，再以原參數、原識別鍵重試一次，不用你重新輸入 prompt。這是給客戶端的指引，不是強制 hook；請求若在到達伺服器前就被封鎖，這個提示無法生效。
+
+裁定條件和耗時已確定時，`prepare_turn` 可一併擲骰和預覽世界事件，讓這類場景由四次工具呼叫減至兩次，提交時仍做完整驗證。需要先看結果才能決定的步驟會保留。詳見[用法與本機量度](docs/performance.md)；這不會改變聊天模型本身的生成速度。
 
 上面是本機 stdio 設定。ChatGPT、Grok 網頁版需要遠端連接；ChatGPT 也可在帳號權限允許時使用官方 Secure MCP Tunnel。公開部署要設定 TLS、認證和 hostname allowlist，步驟見[繁中連接教學](docs/clients.zh-TW.md)。目前一個資料庫供一位擁有者使用，沒有內建 OAuth 或多人帳號隔離。教學列出的各聊天產品帳號介面，還沒有逐一實測。
 
